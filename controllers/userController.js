@@ -15,6 +15,8 @@ exports.register = async (req, res) => {
                 email: req.body.email,
                 password: hashedPassword
             })
+
+            res.sendStatus(200)
         }
         catch {
             res.sendStatus(500)
