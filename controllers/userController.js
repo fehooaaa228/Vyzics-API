@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt') 
 const { User } = require('../models')
 
+
 exports.register = async (req, res) => {
     if(await User.findOne({ where: { email: req.body.email }}) != null){
         res.status(409).send("Email already registered")

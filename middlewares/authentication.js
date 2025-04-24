@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
     if(token == null) return res.sendStatus(401)
 
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, userId) => {
-        if (err) return res.sendStatus(403)
+        if (err) return res.status(403).send(token)
         const user = await User.findByPk(userId)
         req.user = user
         next()

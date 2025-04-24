@@ -1,15 +1,15 @@
 const express = require('express')
 const routes = require('./routes')
+require('dotenv').config()
 
 const app = express()
-const port = 3000
 
 app.use(express.json())
 
 app.use((req, res, next) => {
     res.setHeader(
       "Access-Control-Allow-Origin",
-      "http://localhost:3000"
+      "*"
     );
     res.setHeader(
       "Access-Control-Allow-Methods",
@@ -29,6 +29,6 @@ app.use((req, res, next) => {
 
 app.use(routes)
 
-app.listen(port, () => { 
-    console.log(`Server is listening on port ${port}`) 
+app.listen(process.env.PORT, () => { 
+    console.log(`Server is listening on port ${process.env.PORT}`) 
 })
