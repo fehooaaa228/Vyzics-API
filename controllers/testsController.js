@@ -2,9 +2,9 @@ const { Test, Question, AnswerOption } = require('../models')
 
 
 exports.getTest = async (req, res) => {
-    const testObject = await Test.findByPk(req.body.test_id)
+    const testObject = await Test.findByPk(req.query.test_id)
 
-    if(testObject == null) return res.status(404)
+    if(testObject == null) return res.sendStatus(404)
 
     let test = {
         title: testObject.title,
