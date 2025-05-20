@@ -14,7 +14,8 @@ exports.register = async (req, res) => {
     
             await User.create({
                 email: req.body.email,
-                password: hashedPassword
+                password: hashedPassword,
+                isAdmin: false
             })
 
             res.sendStatus(200)
@@ -44,21 +45,5 @@ exports.login = async (req, res) => {
         catch{
             res.sendStatus(500)
         }
-    }
-}
-
-
-exports.makeAdmin = async (req, res) => {
-    const user = await User.findOne({ where: { email: req.body.email }})
-
-    if(user == null){
-        res.status(400).send("User with this email does not exist")
-    }
-    else{
-        user.isAdmin = true
-
-        user.save()
-
-        res.sendStatus(200)
     }
 }
