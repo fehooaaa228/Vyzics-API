@@ -35,7 +35,7 @@ exports.login = async (req, res) => {
         try{
             if(await bcrypt.compare(req.body.password, user.password)){
                 const accessToken = jwt.sign(user.id, process.env.ACCESS_TOKEN_SECRET)
-                res.json({ accessToken: accessToken })
+                res.json({ accessToken: accessToken, isAdmin: user.isAdmin })
             }
             else{
                 res.status(401).send("Incorrect password")
@@ -44,5 +44,21 @@ exports.login = async (req, res) => {
         catch{
             res.sendStatus(500)
         }
+    }
+}
+
+
+exports.makeAdmin = async (req, res) => {
+    const user = await User.findOne({ where: { email: req.body.email }})
+
+    if(user == null){
+        res.status(400).send("User with this email does not exist")
+    }
+    else{
+        user.isAdmin = true
+
+        user.save()
+
+        res.sendStatus(200)
     }
 }

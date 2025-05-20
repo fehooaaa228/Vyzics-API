@@ -12,4 +12,6 @@ router.post('/register', userController.register)
 router.get('/test', authMiddleware, testsController.getTest)
 router.post('/create_test', authMiddleware, testsController.createTest)
 
+router.post('/make_admin', userController.makeAdmin)
+
 module.exports = router
