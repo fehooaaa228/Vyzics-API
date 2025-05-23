@@ -41,7 +41,7 @@ exports.createTest = async(req, res) => {
         const question = await Question.create({ 
             question: questionObject.question, 
             test_id: test.id, 
-            correctAnswer: questionObject.correctAnswer,
+            correctAnswer: questionObject.correctAnswer.join(' '),
             isCheckbox: questionObject.isCheckbox
         })
 

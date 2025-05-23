@@ -15,7 +15,9 @@ module.exports = (sequelize, DataTypes) => {
   }
   Test.init({
     title: DataTypes.STRING,
-    author: DataTypes.INTEGER
+    author: DataTypes.INTEGER,
+    subject: DataTypes.STRING,
+    difficulty: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Test',
