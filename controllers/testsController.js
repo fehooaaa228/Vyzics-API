@@ -79,5 +79,17 @@ exports.deleteTest = async(req, res) => {
 
     await test.destroy()
 
+    const questions = await Question.findAll({ where: { test_id: test.id } })
+
+    for(let question of questions){
+        const answers = AnswerOption.findAll({ where: { question_id: question.id } })
+
+        for(let answer of answers){
+            await answer.destroy()
+        }
+
+        await question.destroy()
+    }
+
     res.sendStatus(200)
 }
