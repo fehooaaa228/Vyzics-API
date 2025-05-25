@@ -15,6 +15,12 @@ module.exports = {
       author: {
         type: Sequelize.INTEGER
       },
+      subject: {
+        type: Sequelize.STRING
+      },
+      difficulty: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

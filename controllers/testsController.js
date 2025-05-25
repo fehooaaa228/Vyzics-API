@@ -35,7 +35,12 @@ exports.getTest = async (req, res) => {
 
 
 exports.createTest = async(req, res) => {
-    const test = await Test.create({ title: req.body.title, author: req.user.id})
+    const test = await Test.create({ 
+        title: req.body.title, 
+        author: req.user.id, 
+        difficulty: req.body.difficulty, 
+        subject: req.body.subject
+    })
 
     for (const questionObject of req.body.questions) {
         const question = await Question.create({ 
@@ -49,6 +54,30 @@ exports.createTest = async(req, res) => {
             await AnswerOption.create({ text: answerOption, question_id: question.id })
         }
     }
+
+    res.sendStatus(200)
+}
+
+
+exports.getTests = async(req, res) => {
+    const tests = await Test.findAll()
+
+    for(const test of tests){
+        test.dataValues.isMine = test.author == req.user.id ? true : false
+    }
+
+    res.json(tests)
+}
+
+
+exports.deleteTest = async(req, res) => {
+    const test = await Test.findByPk(req.body.test_id)
+
+    if(test == null) return res.sendStatus(404)
+
+    if(!(req.user.isAdmin || req.user.id == test.author)) return res.sendStatus(401)
+
+    await test.destroy()
 
     res.sendStatus(200)
 }

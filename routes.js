@@ -10,6 +10,8 @@ router.post('/login', userController.login)
 router.post('/register', userController.register)
 
 router.get('/test', authMiddleware, testsController.getTest)
+router.get('/tests', authMiddleware, testsController.getTests)
 router.post('/create_test', authMiddleware, testsController.createTest)
+router.post('/delete_test', authMiddleware, testsController.deleteTest)
 
 module.exports = router
